@@ -11,8 +11,6 @@ public class AttackingState : PlayerBaseState
 
     public override void Update(PlayerController player)
     {
-        Debug.Log("test");
-
         throw new System.NotImplementedException();
     }
 
