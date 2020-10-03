@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - tile
+  - players
+  - dice
+  - player1
+  - player2
   layers:
   - Default
   - TransparentFX
@@ -41,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Tiles
+    uniqueID: 1664188597
+    locked: 0
+  - name: Player
+    uniqueID: 1863080089
     locked: 0
