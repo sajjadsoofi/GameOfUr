@@ -25,6 +25,8 @@ public class PlayerPiece : MonoBehaviour
 
     public int playerID;
 
+    PlayerPiece pieceToKick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,7 @@ public class PlayerPiece : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f )// Remove Hared coded 0.01f
+        if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f )// TODO : Remove Hared coded 0.01f
         {
             if (moveQueue != null && moveQueueIndex < moveQueue.Length)
             {
@@ -65,8 +67,19 @@ public class PlayerPiece : MonoBehaviour
             }
             else
             {
+                if (pieceToKick != null)
+                {
+                    pieceToKick.ReturnTOStorage();
+                    pieceToKick = null;
+                }
                 this.isAnimating = false;
                 stateManager.isDoneAnimating = true;
+
+                // Are we on a safe tile?
+                if (currentTile != null && currentTile.isSafe)
+                {
+                    stateManager.rollAgain();
+                }
             }
         }
         // TODO: potential performance issue (smoothDamp)
@@ -126,7 +139,12 @@ public class PlayerPiece : MonoBehaviour
             // if there is an enemy in our legal tile , we kick it out.
             if (finalTile.playerPiece != null)
             {
-                finalTile.playerPiece.ReturnTOStorage();
+                //finalTile.playerPiece.ReturnTOStorage();
+
+                // We store the piece To Kick out and we will do the kick out when we reached our destination
+                pieceToKick = finalTile.playerPiece; 
+                pieceToKick.currentTile.playerPiece = null;
+                pieceToKick.currentTile = null;
             }
         }
 
@@ -161,7 +179,7 @@ public class PlayerPiece : MonoBehaviour
 
         for (int i = 0; i < spacesToMove; i++) // loops the amount of dice number
         {
-            if (finalTile == null && scoreMe == false) //if we are not on the board
+            if (finalTile == null) //if we are not on the board
             {
                 finalTile = startingTile;
             }
@@ -169,8 +187,9 @@ public class PlayerPiece : MonoBehaviour
             {
                 if (finalTile.nextTiles == null || finalTile.nextTiles.Length == 0) // Checking if we've
                 {                                                                   //reached the end
-                    // This means we are going home
-                    finalTile = null;
+                    // We are over shooting victory , so just return null 
+                    // Just break and we'll return the aray which is gonna have null at the end
+                    break;
                 }
                 else if (finalTile.nextTiles.Length > 1) // Checking the last middle tile 
                 {                                        // for splitting p1 and p2 paths
@@ -212,8 +231,10 @@ public class PlayerPiece : MonoBehaviour
     {
         if (destinationTile == null)
         {
-            Debug.Log("[PlayerPiece.cs] We're tring to move off the board and score.");
-            return true;
+            // A null tile means we are over shooting the victory roll
+            return false;
+            //Debug.Log("[PlayerPiece.cs] We're tring to move off the board and score.");
+            //return true;
         }
 
         // Is the tile empty?
@@ -228,7 +249,12 @@ public class PlayerPiece : MonoBehaviour
             return false;
         }
         // if it's an enemy piece , Is it in safe tile?
-        // TODO: Safe Tiles
+        // Safe Tiles
+        if (destinationTile.isSafe == true)
+        {
+            // Can not kick enemy off
+            return false;
+        }
 
         // if We've gotten here , it means we can legally land on the enemy and kick it off the board
         return true;
@@ -236,8 +262,8 @@ public class PlayerPiece : MonoBehaviour
 
     public void ReturnTOStorage()
     {
-        currentTile.playerPiece = null;
-        currentTile = null;
+        //currentTile.playerPiece = null;
+        //currentTile = null;
 
         // Save our current position
         Vector2 savePosition = this.transform.position;

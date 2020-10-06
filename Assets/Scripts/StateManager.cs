@@ -26,6 +26,14 @@ public class StateManager : MonoBehaviour
         currentPlayerID = (currentPlayerID +1 ) % numberOfPlayers;
     }
 
+    public void rollAgain()
+    {
+        Debug.Log("Roll Again!!");
+        isDoneRolling = false;
+        isDoneClicking = false;
+        isDoneAnimating = false;
+    }
+
     // TODO : Use FSM
     // VVVVVVVVVVVVVV
 

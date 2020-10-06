@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PieceStorage : MonoBehaviour
 {
+    public GameObject home;
     public GameObject piecePrefab;
     public Tile startingTile;
 
@@ -15,7 +16,8 @@ public class PieceStorage : MonoBehaviour
             GameObject thePiece = Instantiate(piecePrefab);
             thePiece.GetComponent<PlayerPiece>().startingTile = this.startingTile;
             thePiece.GetComponent<PlayerPiece>().myPieceStorage = this;
-
+            thePiece.GetComponent<PlayerPiece>().home = this.home;
+ 
             AddPieceToStorage(thePiece, this.transform.GetChild(i) );
         }
     }
