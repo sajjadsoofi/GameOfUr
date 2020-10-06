@@ -295,6 +295,11 @@ PrefabInstance:
       propertyPath: nextTiles.Array.data[0]
       value: 
       objectReference: {fileID: 730504986}
+    - target: {fileID: 1334560013344831366, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
+        type: 3}
+      propertyPath: isSafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157334713218313896, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
         type: 3}
       propertyPath: m_Name
@@ -1432,6 +1437,11 @@ PrefabInstance:
       propertyPath: nextTiles.Array.data[0]
       value: 
       objectReference: {fileID: 730504986}
+    - target: {fileID: 1334560013344831366, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
+        type: 3}
+      propertyPath: isSafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157334713218313896, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
         type: 3}
       propertyPath: m_Name
@@ -3141,6 +3151,11 @@ PrefabInstance:
       propertyPath: nextTiles.Array.data[0]
       value: 
       objectReference: {fileID: 1816397510}
+    - target: {fileID: 1334560013344831366, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
+        type: 3}
+      propertyPath: isSafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157334713218313896, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
         type: 3}
       propertyPath: m_Name
@@ -3299,6 +3314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextTiles: []
   playerPiece: {fileID: 0}
+  isSafe: 0
 --- !u!1001 &1798062958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3316,6 +3332,11 @@ PrefabInstance:
       propertyPath: nextTiles.Array.data[0]
       value: 
       objectReference: {fileID: 1716517967}
+    - target: {fileID: 1334560013344831366, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
+        type: 3}
+      propertyPath: isSafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157334713218313896, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
         type: 3}
       propertyPath: m_Name
@@ -3468,6 +3489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextTiles: []
   playerPiece: {fileID: 0}
+  isSafe: 0
 --- !u!1 &1839261620
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,6 +3998,11 @@ PrefabInstance:
       propertyPath: nextTiles.Array.data[0]
       value: 
       objectReference: {fileID: 572773698}
+    - target: {fileID: 1334560013344831366, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
+        type: 3}
+      propertyPath: isSafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157334713218313896, guid: 0016b8697f3ab514d9b37f27c9f1a23b,
         type: 3}
       propertyPath: m_Name
