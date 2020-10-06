@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 public class DiceTotalDisplay : MonoBehaviour
 {
-    public DiceRoller diceRoller;
+    StateManager stateManager;
+
+    private void Start()
+    {
+        stateManager = GameObject.FindObjectOfType<StateManager>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (diceRoller.isDoneRolling == false)
+        if (stateManager.isDoneRolling == false)
         {
             GetComponent<Text>().text = "= ?";
         }
         else
         {
-            GetComponent<Text>().text = "= " + diceRoller.diceTotal;
+            GetComponent<Text>().text = "= " + stateManager.diceTotal;
         }
 
         

@@ -9,13 +9,13 @@ public class DiceRoller : MonoBehaviour
     public int[] diceValues;
     public Sprite[] diceImageOne;
     public Sprite[] diceImageZero;
-    public int diceTotal;
 
-    public bool isDoneRolling = false;
+    StateManager theStateMAnager;
 
     // Start is called before the first frame update
     void Start()
     {
+        theStateMAnager = GameObject.FindObjectOfType<StateManager>();
         diceValues = new int[4];
     }
 
@@ -25,20 +25,20 @@ public class DiceRoller : MonoBehaviour
         
     }
 
-    public void NewTurn()
-    {
-        //The Start Of Player's turn
-
-        isDoneRolling = false;
-    }
+    
 
     public void RollTheDice()
     {
-        diceTotal = 0;
+        if (theStateMAnager.isDoneRolling == true)
+        {
+            return;
+        }
+
+        theStateMAnager.diceTotal = 0;
         for (int i = 0; i < diceValues.Length; i++)
         {
             diceValues[i] = Random.Range(0, 2);
-            diceTotal += diceValues[i];
+            theStateMAnager.diceTotal += diceValues[i];
 
             if (diceValues[i] == 0)
             {
@@ -51,8 +51,10 @@ public class DiceRoller : MonoBehaviour
                     diceImageOne[Random.Range(0, diceImageOne.Length)];
             }
 
-
-            isDoneRolling = true;
+            
         }
+        //theStateMAnager.diceTotal = 3;
+        theStateMAnager.isDoneRolling = true;
+        theStateMAnager.CheckLegalMoves();
     }
 }

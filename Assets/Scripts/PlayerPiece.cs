@@ -1,27 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class PlayerPiece : MonoBehaviour
 {
-    DiceRoller diceRoller;
+    
+    Tile currentTile;
+    StateManager stateManager;
+    
     public Tile startingTile;
     public GameObject home;
-    Tile currentTile;
+    public PieceStorage myPieceStorage;
+
 
     bool scoreMe = false;
+    bool isAnimating = false;
 
     Tile[] moveQueue;
     int moveQueueIndex;
 
     Vector2 targetPosition; // Keep track of target position for smooth transition between tiles
 
+    public int playerID;
 
     // Start is called before the first frame update
     void Start()
     {
-        diceRoller = GameObject.FindObjectOfType<DiceRoller>();
+        stateManager = GameObject.FindObjectOfType<StateManager>();
 
         targetPosition = this.transform.position;
     }
@@ -33,6 +40,11 @@ public class PlayerPiece : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.isAnimating == false)
+        {
+            return;
+        }
+
         if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f )// Remove Hared coded 0.01f
         {
             if (moveQueue != null && moveQueueIndex < moveQueue.Length)
@@ -42,6 +54,7 @@ public class PlayerPiece : MonoBehaviour
                 {
                     //The piece reached Home
                     SetNewTargetPosition((Vector2)home.transform.position);
+                    stateManager.isDoneAnimating = true;
                 }
                 else
                 {
@@ -50,8 +63,13 @@ public class PlayerPiece : MonoBehaviour
                 }
                 
             }
+            else
+            {
+                this.isAnimating = false;
+                stateManager.isDoneAnimating = true;
+            }
         }
-        // TODO potential performance issue (smoothDamp)
+        // TODO: potential performance issue (smoothDamp)
         this.transform.position = Vector2.SmoothDamp(this.transform.position, targetPosition, ref velocity, smoothTime);
     }
 
@@ -59,33 +77,87 @@ public class PlayerPiece : MonoBehaviour
     {
         targetPosition = position;
         velocity = Vector2.zero;
+        isAnimating = true;
     }
 
     private void OnMouseUp()
     {
         //TODO : Resolve UI and G.O click conflict.
-        //Debug.Log("click");
-
-        if (diceRoller.isDoneRolling == false)
+        // Is this the correct player?
+        if (stateManager.currentPlayerID != playerID)
+        {
+            return;
+        }
+        if (stateManager.isDoneRolling == false)
         {
             //Can't Move the Piece
             return;
         }
-
-        int spacesToMove = diceRoller.diceTotal;
+        if (stateManager.isDoneClicking == true)
+        {
+            return;
+        }
+        int spacesToMove = stateManager.diceTotal;
 
         if (spacesToMove == 0)
         {
             return;
         }
+        
 
-        moveQueue = new Tile[spacesToMove]; //moveQueue will be set as zero to four
+        // Where should we end up ?
+        moveQueue = GetTilesAhead(spacesToMove);
+        Tile finalTile = moveQueue[moveQueue.Length - 1]; // We are getting the final item from the tiles' list above
+
+        // TODO : Check to see if the move is legal.
+        if (finalTile == null)
+        {
+            scoreMe = true; // the piece reached home
+        }
+        else
+        {
+            if (CanLegallyMoveTo(finalTile)==false)
+            {
+                //not allowed
+                finalTile = currentTile;
+                moveQueue = null;
+                return;
+            }
+            // if there is an enemy in our legal tile , we kick it out.
+            if (finalTile.playerPiece != null)
+            {
+                finalTile.playerPiece.ReturnTOStorage();
+            }
+        }
+
+        this.transform.SetParent(null);
+
+        // Remove ourselves from our old tile.
+        if (currentTile != null)
+        {
+            currentTile.playerPiece = null;
+        }
+
+        // put ourselves in our new tile.
+        finalTile.playerPiece = this;
+
+        moveQueueIndex = 0;
+        currentTile = finalTile;
+        stateManager.isDoneClicking = true;
+        this.isAnimating = true;
+    }
+    private Tile[] GetTilesAhead(int spacesToMove) // Return the list of tiles moves ahead of us
+    {
+        if (spacesToMove == 0)
+        {
+            return null;
+        }
+
+        Tile[] listOfTiles = new Tile[spacesToMove]; //moveQueue will be set as zero to four
 
         Tile finalTile = currentTile;       // goal tile . the tile that we are supposed to go 
                                             // regarding the dice number(spaceToMove)
                                             //If we roll zero => finalTile = currentTile
-        
-        
 
         for (int i = 0; i < spacesToMove; i++) // loops the amount of dice number
         {
@@ -97,16 +169,13 @@ public class PlayerPiece : MonoBehaviour
             {
                 if (finalTile.nextTiles == null || finalTile.nextTiles.Length == 0) // Checking if we've
                 {                                                                   //reached the end
-                    //Debug.Log("Score");
-                    //Destroy(gameObject); // We are doing this temporarly
-                    //return;              // TODO : Resolve Reaching the end.
-                    scoreMe = true;
+                    // This means we are going home
                     finalTile = null;
                 }
-                else if (finalTile.nextTiles.Length > 1)
-                {
-                    //TODO : Branch based on player Id
-                    finalTile = finalTile.nextTiles[0];
+                else if (finalTile.nextTiles.Length > 1) // Checking the last middle tile 
+                {                                        // for splitting p1 and p2 paths
+                    //Branch based on player Id 
+                    finalTile = finalTile.nextTiles[playerID];
                 }
                 else
                 {
@@ -114,15 +183,73 @@ public class PlayerPiece : MonoBehaviour
                 }
             }
 
-            moveQueue[i] = finalTile; // Generating the move queue
+            listOfTiles[i] = finalTile; // Generating the move queue
+        }
+        return listOfTiles;
+    }
+
+    // Returns the final tile we will land on if we moved N spaces
+    private Tile GetTileAhead(int spacesToMove)
+    {
+        Tile[] tiles = GetTilesAhead(spacesToMove);
+        if (tiles == null)
+        {
+            // We are not moving at all , so return current tile
+            return currentTile;
+        }
+        return tiles[tiles.Length - 1 ];
+    }
+
+    public bool CanlegallyMoveAhead(int spacesToMove)
+    {
+        Tile theTile = GetTileAhead(spacesToMove);
+        return CanLegallyMoveTo(theTile);
+    }
+
+    
+
+    bool CanLegallyMoveTo (Tile destinationTile)
+    {
+        if (destinationTile == null)
+        {
+            Debug.Log("[PlayerPiece.cs] We're tring to move off the board and score.");
+            return true;
         }
 
-        // Teleport the tile to final tile 
-        //this.transform.position = finalTile.transform.position;
+        // Is the tile empty?
+        if (destinationTile.playerPiece == null)
+        {
+            return true;
+        }
+        // Is it one of our own piece
+        if (destinationTile.playerPiece.playerID == this.playerID)
+        {
+            // We can't land on our own piece;
+            return false;
+        }
+        // if it's an enemy piece , Is it in safe tile?
+        // TODO: Safe Tiles
 
-
-        //SetNewTargetPosition(finalTile.transform.position);
-        moveQueueIndex = 0;
-        currentTile = finalTile;
+        // if We've gotten here , it means we can legally land on the enemy and kick it off the board
+        return true;
     }
+
+    public void ReturnTOStorage()
+    {
+        currentTile.playerPiece = null;
+        currentTile = null;
+
+        // Save our current position
+        Vector2 savePosition = this.transform.position;
+
+        myPieceStorage.AddPieceToStorage(this.gameObject);
+
+        // Set our new position to the animation target
+        SetNewTargetPosition(this.transform.position);
+
+        // Restore our saved position
+        this.transform.position = savePosition;
+
+    }
+
 }
