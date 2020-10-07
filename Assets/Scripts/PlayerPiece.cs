@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerPiece : MonoBehaviour
 {
@@ -31,7 +27,7 @@ public class PlayerPiece : MonoBehaviour
     void Start()
     {
         stateManager = GameObject.FindObjectOfType<StateManager>();
-
+        home = GetComponent<GameObject>();
         targetPosition = this.transform.position;
     }
 
@@ -47,36 +43,36 @@ public class PlayerPiece : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f )// TODO : Remove Hared coded 0.01f
+        // TODO : Remove Hared coded 0.01f
+        if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f ) // If our piece reached next tile
         {
-            if (moveQueue != null && moveQueueIndex < moveQueue.Length)
+            if (moveQueue != null && moveQueueIndex < moveQueue.Length) // If we have not reached the final tile (in the move queue)
             {
                 Tile nextTile = moveQueue[moveQueueIndex];
-                if (nextTile == null)
+                if (nextTile == null) // If we reached the last tile of the moving queue
                 {
-                    //The piece reached Home
-                    SetNewTargetPosition((Vector2)home.transform.position);
+                    //TODO: Resolve the home tile problem (only one piece can go home because the home is occupied)
+                    SetNewTargetPosition((Vector2)home.transform.position); // The piece goes Home
+                    currentTile.playerPiece = null;
                     stateManager.isDoneAnimating = true;
                 }
                 else
                 {
-                    SetNewTargetPosition(nextTile.transform.position);
+                    SetNewTargetPosition(nextTile.transform.position); // Advance moving queue
                     moveQueueIndex++;
                 }
-                
             }
-            else
+            else //If we have reached the final tile (in the move queue)
             {
-                if (pieceToKick != null)
+                if (pieceToKick != null && pieceToKick.playerID != this.playerID) // if there is an enemy in the tile
                 {
                     pieceToKick.ReturnTOStorage();
                     pieceToKick = null;
                 }
                 this.isAnimating = false;
                 stateManager.isDoneAnimating = true;
-
-                // Are we on a safe tile?
-                if (currentTile != null && currentTile.isSafe)
+                
+                if (currentTile != null && currentTile.isSafe) // If we are on a safe tile
                 {
                     stateManager.rollAgain();
                 }
@@ -95,9 +91,9 @@ public class PlayerPiece : MonoBehaviour
 
     private void OnMouseUp()
     {
-        //TODO : Resolve UI and G.O click conflict.
-        // Is this the correct player?
-        if (stateManager.currentPlayerID != playerID)
+        //TODO : Resolve UI and GameObject click conflict.
+        
+        if (stateManager.currentPlayerID != playerID) // Is this the correct player?
         {
             return;
         }
@@ -110,24 +106,24 @@ public class PlayerPiece : MonoBehaviour
         {
             return;
         }
-        int spacesToMove = stateManager.diceTotal;
 
-        if (spacesToMove == 0)
+        int spacesToMove = stateManager.diceTotal; // Initializing the amount of tiles that we should move
+
+        if (spacesToMove == 0) // If we rolled zero
         {
             return;
         }
         
+        moveQueue = GetTilesAhead(spacesToMove); // Generating the move queue
 
-        // Where should we end up ?
-        moveQueue = GetTilesAhead(spacesToMove);
         Tile finalTile = moveQueue[moveQueue.Length - 1]; // We are getting the final item from the tiles' list above
 
         // TODO : Check to see if the move is legal.
-        if (finalTile == null)
+        if (finalTile == null) // the piece reached home
         {
-            scoreMe = true; // the piece reached home
+            scoreMe = true; 
         }
-        else
+        else // the piece is still on the bourd
         {
             if (CanLegallyMoveTo(finalTile)==false)
             {
@@ -193,8 +189,7 @@ public class PlayerPiece : MonoBehaviour
                 }
                 else if (finalTile.nextTiles.Length > 1) // Checking the last middle tile 
                 {                                        // for splitting p1 and p2 paths
-                    //Branch based on player Id 
-                    finalTile = finalTile.nextTiles[playerID];
+                    finalTile = finalTile.nextTiles[playerID]; //Branch based on player Id 
                 }
                 else
                 {
@@ -245,6 +240,11 @@ public class PlayerPiece : MonoBehaviour
         // Is it one of our own piece
         if (destinationTile.playerPiece.playerID == this.playerID)
         {
+            //TODO: Make a proper home array of arena
+            if (destinationTile.isHome == true) // If the destination is home , then its legal to move there
+            {
+                return true;
+            }
             // We can't land on our own piece;
             return false;
         }

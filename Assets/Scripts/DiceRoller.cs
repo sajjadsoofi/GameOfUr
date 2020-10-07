@@ -53,7 +53,7 @@ public class DiceRoller : MonoBehaviour
 
             
         }
-        //theStateMAnager.diceTotal = 3;
+        theStateMAnager.diceTotal = 15;
         theStateMAnager.isDoneRolling = true;
         theStateMAnager.CheckLegalMoves();
     }

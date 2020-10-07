@@ -22,12 +22,6 @@ public class PieceStorage : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddPieceToStorage(GameObject thePiece , Transform thePlaceHolder = null)
     {
         if (thePlaceHolder == null)
