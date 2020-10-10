@@ -58,12 +58,13 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    //? Move to another class
     public void CheckLegalMoves()
     {
         // If rolled zero => no legal move
         if (diceTotal == 0)
         {
-            StartCoroutine("NolegalMoveCoroutine");
+            StartCoroutine(NolegalMoveCoroutine());
             return;
         }
 

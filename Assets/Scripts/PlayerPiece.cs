@@ -2,14 +2,13 @@
 
 public class PlayerPiece : MonoBehaviour
 {
-    
+    #region Variables
     Tile currentTile;
     StateManager stateManager;
     
     public Tile startingTile;
     public GameObject home;
     public PieceStorage myPieceStorage;
-
 
     bool scoreMe = false;
     bool isAnimating = false;
@@ -23,71 +22,21 @@ public class PlayerPiece : MonoBehaviour
 
     PlayerPiece pieceToKick;
 
-    // Start is called before the first frame update
+    Vector2 velocity;
+    float smoothTime = 0.2f;
+    #endregion
+
     void Start()
     {
         stateManager = GameObject.FindObjectOfType<StateManager>();
         home = GetComponent<GameObject>();
         targetPosition = this.transform.position;
     }
-
-
-    Vector2 velocity;
-    float smoothTime = 0.2f;
-
-    // Update is called once per frame
     void Update()
     {
-        if (this.isAnimating == false)
-        {
-            return;
-        }
-
-        // TODO : Remove Hared coded 0.01f
-        if (Vector2.Distance( (Vector2)this.transform.position , targetPosition) < 0.01f ) // If our piece reached next tile
-        {
-            if (moveQueue != null && moveQueueIndex < moveQueue.Length) // If we have not reached the final tile (in the move queue)
-            {
-                Tile nextTile = moveQueue[moveQueueIndex];
-                if (nextTile == null) // If we reached the last tile of the moving queue
-                {
-                    //TODO: Resolve the home tile problem (only one piece can go home because the home is occupied)
-                    SetNewTargetPosition((Vector2)home.transform.position); // The piece goes Home
-                    currentTile.playerPiece = null;
-                    stateManager.isDoneAnimating = true;
-                }
-                else
-                {
-                    SetNewTargetPosition(nextTile.transform.position); // Advance moving queue
-                    moveQueueIndex++;
-                }
-            }
-            else //If we have reached the final tile (in the move queue)
-            {
-                if (pieceToKick != null && pieceToKick.playerID != this.playerID) // if there is an enemy in the tile
-                {
-                    pieceToKick.ReturnTOStorage();
-                    pieceToKick = null;
-                }
-                this.isAnimating = false;
-                stateManager.isDoneAnimating = true;
-                
-                if (currentTile != null && currentTile.isSafe) // If we are on a safe tile
-                {
-                    stateManager.rollAgain();
-                }
-            }
-        }
-        // TODO: potential performance issue (smoothDamp)
-        this.transform.position = Vector2.SmoothDamp(this.transform.position, targetPosition, ref velocity, smoothTime);
+        GoToNextTile();
     }
 
-    void SetNewTargetPosition(Vector2 position) // Helper function for target properties when reseting new target
-    {
-        targetPosition = position;
-        velocity = Vector2.zero;
-        isAnimating = true;
-    }
 
     private void OnMouseUp()
     {
@@ -107,14 +56,14 @@ public class PlayerPiece : MonoBehaviour
             return;
         }
 
-        int spacesToMove = stateManager.diceTotal; // Initializing the amount of tiles that we should move
+        int tilesToMove = stateManager.diceTotal; // Initializing the amount of tiles that we should move
 
-        if (spacesToMove == 0) // If we rolled zero
+        if (tilesToMove == 0) // If we rolled zero
         {
             return;
         }
         
-        moveQueue = GetTilesAhead(spacesToMove); // Generating the move queue
+        moveQueue = GetTilesAhead(tilesToMove); // Generating the move queue
 
         Tile finalTile = moveQueue[moveQueue.Length - 1]; // We are getting the final item from the tiles' list above
 
@@ -160,6 +109,60 @@ public class PlayerPiece : MonoBehaviour
         stateManager.isDoneClicking = true;
         this.isAnimating = true;
     }
+
+    private void GoToNextTile()
+    {
+        if (this.isAnimating == false)
+        {
+            return;
+        }
+
+        // TODO : Remove Hared coded 0.01f
+        if (Vector2.Distance((Vector2)this.transform.position, targetPosition) < 0.01f) // If our piece reached next tile
+        {
+            if (moveQueue != null && moveQueueIndex < moveQueue.Length) // If we have not reached the final tile (in the move queue)
+            {
+                Tile nextTile = moveQueue[moveQueueIndex];
+                if (nextTile == null) // If we reached the last tile of the moving queue
+                {
+                    //TODO: Resolve the home tile problem (only one piece can go home because the home is occupied)
+                    SetNewTargetPosition((Vector2)home.transform.position); // The piece goes Home
+                    currentTile.playerPiece = null;
+                    stateManager.isDoneAnimating = true;
+                }
+                else
+                {
+                    SetNewTargetPosition(nextTile.transform.position); // Advance moving queue
+                    moveQueueIndex++;
+                }
+            }
+            else //If we have reached the final tile (in the move queue)
+            {
+                if (pieceToKick != null && pieceToKick.playerID != this.playerID) // if there is an enemy in the tile
+                {
+                    pieceToKick.ReturnTOStorage();
+                    pieceToKick = null;
+                }
+                this.isAnimating = false;
+                stateManager.isDoneAnimating = true;
+
+                if (currentTile != null && currentTile.isSafe) // If we are on a safe tile
+                {
+                    stateManager.rollAgain();
+                }
+            }
+        }
+        // TODO: potential performance issue (smoothDamp)
+        this.transform.position = Vector2.SmoothDamp(this.transform.position, targetPosition, ref velocity, smoothTime);
+    }
+
+    void SetNewTargetPosition(Vector2 position) // Helper function for target properties when reseting new target
+    {
+        targetPosition = position;
+        velocity = Vector2.zero;
+        isAnimating = true;
+    }
+
     private Tile[] GetTilesAhead(int spacesToMove) // Return the list of tiles moves ahead of us
     {
         if (spacesToMove == 0)
@@ -219,8 +222,6 @@ public class PlayerPiece : MonoBehaviour
         Tile theTile = GetTileAhead(spacesToMove);
         return CanLegallyMoveTo(theTile);
     }
-
-    
 
     bool CanLegallyMoveTo (Tile destinationTile)
     {

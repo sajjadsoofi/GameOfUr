@@ -248,7 +248,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.317178
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -417,8 +417,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: 183}
-  m_SizeDelta: {x: 246.5, y: 157.8}
+  m_AnchoredPosition: {x: 9, y: 169.9}
+  m_SizeDelta: {x: 133.8118, y: 184.04243}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &81780656
 MonoBehaviour:
@@ -441,10 +441,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 46
+    m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 3
     m_MaxSize: 63
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 171085415}
   - component: {fileID: 171085416}
   m_Layer: 0
-  m_Name: P1
+  m_Name: P1_Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 1070442041}
   - component: {fileID: 1070442042}
   m_Layer: 0
-  m_Name: P2
+  m_Name: P2_Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2210,7 +2210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 129, y: 0}
+  m_AnchoredPosition: {x: 6, y: 0}
   m_SizeDelta: {x: 77.2, y: 268.9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1103831557
@@ -2557,8 +2557,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 60, y: -208}
-  m_SizeDelta: {x: 232.9, y: 122.1}
+  m_AnchoredPosition: {x: 9, y: -194}
+  m_SizeDelta: {x: 101.68765, y: 85.05183}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1248665411
 MonoBehaviour:
@@ -2981,7 +2981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: -27}
+  m_AnchoredPosition: {x: 89, y: -27}
   m_SizeDelta: {x: 221.4, y: 101.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1598529748
@@ -3005,10 +3005,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 60
+    m_FontSize: 38
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 3
     m_MaxSize: 63
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3315,6 +3315,7 @@ MonoBehaviour:
   nextTiles: []
   playerPiece: {fileID: 0}
   isSafe: 0
+  isHome: 1
 --- !u!1001 &1798062958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3490,6 +3491,7 @@ MonoBehaviour:
   nextTiles: []
   playerPiece: {fileID: 0}
   isSafe: 0
+  isHome: 1
 --- !u!1 &1839261620
 GameObject:
   m_ObjectHideFlags: 0

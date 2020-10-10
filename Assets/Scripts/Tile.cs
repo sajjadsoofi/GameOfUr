@@ -8,15 +8,4 @@ public class Tile : MonoBehaviour
     public PlayerPiece playerPiece;
     public bool isSafe;
     public bool isHome;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

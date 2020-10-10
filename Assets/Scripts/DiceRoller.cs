@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DiceRoller : MonoBehaviour
 {
-
     public int[] diceValues;
     public Sprite[] diceImageOne;
     public Sprite[] diceImageZero;
@@ -19,20 +18,14 @@ public class DiceRoller : MonoBehaviour
         diceValues = new int[4];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
-
     public void RollTheDice()
     {
         if (theStateMAnager.isDoneRolling == true)
         {
             return;
         }
+
+        theStateMAnager.isDoneRolling = true;
 
         theStateMAnager.diceTotal = 0;
         for (int i = 0; i < diceValues.Length; i++)
@@ -50,10 +43,7 @@ public class DiceRoller : MonoBehaviour
                 this.transform.GetChild(i).GetComponent<Image>().sprite =
                     diceImageOne[Random.Range(0, diceImageOne.Length)];
             }
-
-            
         }
-        theStateMAnager.isDoneRolling = true;
         theStateMAnager.CheckLegalMoves();
     }
 }
