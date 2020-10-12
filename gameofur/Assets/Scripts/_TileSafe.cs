@@ -12,7 +12,7 @@ public class _TileSafe : _Tile
 
     public override void TileEndAction()
     {
-        if (SceneManager.instance != null) SceneManager.instance.OnSameTurnHandler();
+        if (SceneManager.instance != null) SceneManager.instance.OnSameTurnHandler(false);
     }
 
 }

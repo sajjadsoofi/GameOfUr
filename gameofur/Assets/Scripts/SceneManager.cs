@@ -37,20 +37,35 @@ public class SceneManager : MonoBehaviour
     {
         dice.interactable = false;
         diceValue = Random.Range(0, 5);
+        // diceValue = Random.Range(0, 2);
         diceValueText.text = diceValue.ToString();
-        if (diceValue == 0) StartCoroutine(ActivateDiceDelayed());
+        if (diceValue == 0) OnSwitchTurnHandler(true);
         else myPlayers[currentPlayer].CheckForOptions(diceValue);
     }
 
-    public void OnSwitchTurnHandler()
+    public void OnSwitchTurnHandler(bool delayed)
     {
+        if (delayed) StartCoroutine(ActivateDiceSwitchDelayed(diceDelayTime));
+        else StartCoroutine(ActivateDiceSwitchDelayed(0.1f));
+    }
+
+    IEnumerator ActivateDiceSwitchDelayed(float _delay)
+    {
+        yield return new WaitForSeconds(_delay);
         currentPlayer = 1 - currentPlayer;
         playerTurnText.text = (currentPlayer + 1).ToString();
         ActivateDice();
     }
 
-    public void OnSameTurnHandler()
+    public void OnSameTurnHandler(bool delayed)
     {
+        if (delayed) StartCoroutine(ActivateDiceSameDelayed(diceDelayTime));
+        else StartCoroutine(ActivateDiceSameDelayed(0.1f));
+    }
+
+    IEnumerator ActivateDiceSameDelayed(float _delay)
+    {
+        yield return new WaitForSeconds(_delay);
         Debug.Log("Roll Again!");
         ActivateDice();
     }
@@ -59,13 +74,6 @@ public class SceneManager : MonoBehaviour
     {
         dice.interactable = true;
         diceValueText.text = "-";
-    }
-
-    IEnumerator ActivateDiceDelayed()
-    {
-        yield return new WaitForSeconds(diceDelayTime);
-        OnSwitchTurnHandler();
-        ActivateDice();
     }
 
     void Update()

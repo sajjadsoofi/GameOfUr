@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     public void CheckForOptions(int _diceval)
     {
+        int activated = 0;
         for (int i = 0; i < myPieces.Length; i++)
         {
             int targetTileIndex = myPieces[i].currentTile + _diceval;
@@ -50,9 +51,11 @@ public class Player : MonoBehaviour
                 {
                     // Only activate these pieces
                     myPieces[i].Activate();
+                    activated++;
                 }
             }
         }
+        if (activated < 1) SceneManager.instance.OnSwitchTurnHandler(true);
     }
 
     public void NavigateThisPiece(int _index, int _diceval)

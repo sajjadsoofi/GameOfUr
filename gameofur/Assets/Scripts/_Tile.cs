@@ -24,7 +24,7 @@ public class _Tile : MonoBehaviour
 
     public virtual void TileEndAction()
     {
-        if (SceneManager.instance != null) SceneManager.instance.OnSwitchTurnHandler();
+        if (SceneManager.instance != null) SceneManager.instance.OnSwitchTurnHandler(false);
     }
 
     public Piece GetEnemyPiece()

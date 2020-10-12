@@ -7,7 +7,7 @@ public class _TileHome : _Tile
         SceneManager sm = SceneManager.instance;
         if (sm != null)
         {
-            sm.OnSwitchTurnHandler();
+            sm.OnSwitchTurnHandler(true);
             sm.GrantOneScorePoint(currentPiece.playerIndex);
         }
         currentPiece.WinMe();

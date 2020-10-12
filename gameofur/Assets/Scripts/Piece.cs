@@ -58,7 +58,6 @@ public class Piece : MonoBehaviour
         else foreach (Vector2 item in _pathPoints) pathPoints.Enqueue(item);
 
         transform.GetChild(0).GetComponent<Animator>().enabled = true;
-        isMoving = true;
         DequeueNextPoint();
     }
 
@@ -68,12 +67,12 @@ public class Piece : MonoBehaviour
         if (pathPoints.Count > 0)
         {
             currentPoint = pathPoints.Dequeue();
+            isMoving = true;
         }
         else
         {   // Last target reached
             currentPoint = Vector2.zero;
             transform.GetChild(0).GetComponent<Animator>().enabled = false;
-            isMoving = false;
             if (OnPathEnded != null)
             {
                 OnPathEnded();
@@ -108,6 +107,7 @@ public class Piece : MonoBehaviour
         else
         {   // Reached target
             transform.position = currentPoint;
+            isMoving = false;
             DequeueNextPoint();
         }
     }
