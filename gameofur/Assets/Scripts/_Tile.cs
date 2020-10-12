@@ -3,8 +3,7 @@
 public class _Tile : MonoBehaviour
 {
 
-    public bool isSafe;
-    Piece currentPiece;
+    protected Piece currentPiece;
 
     public void TakeThisTile(Piece _piece)
     {   // _piece takes this tile
@@ -16,17 +15,20 @@ public class _Tile : MonoBehaviour
         currentPiece = null;
     }
 
-    public bool BlockCheck(int _playerIndex)
+    public virtual bool BlockCheck(int _playerIndex)
     {   // if Tile is Empty: not blocked
         if (currentPiece == null) return false;
         // (taken by me) or (safe tile) : blocked
-        return (currentPiece.playerIndex == _playerIndex || isSafe);
+        return (currentPiece.playerIndex == _playerIndex);
     }
 
-    public Piece WillKillHappen()
+    public virtual void TileEndAction()
     {
-        // if a piece can move to this tile then it's an enemy
-        // null: No kill  else: Kill this piece
+        if (SceneManager.instance != null) SceneManager.instance.OnSwitchTurnHandler();
+    }
+
+    public Piece GetEnemyPiece()
+    {
         return currentPiece;
     }
 

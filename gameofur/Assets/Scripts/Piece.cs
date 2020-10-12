@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void PieceReachedHandler(); // Piece reached end point contract
+public delegate void EndActionHandler(); // Piece reached end point contract
 
 public class Piece : MonoBehaviour
 {
 
     public int playerIndex;
     int pieceIndex;
+    Vector2 myplaceholder;
     bool isMoving;
     public bool isActive; // Piece enables collider only when active
     BoxCollider2D myCollider;
     public int currentTile; // -1: not on board
     Queue<Vector2> pathPoints = new Queue<Vector2>();
     Vector2 currentPoint;
-    public event PieceReachedHandler OnPathEnded;
+    public event EndActionHandler OnPathEnded;
 
 
     void Start()
@@ -23,10 +24,12 @@ public class Piece : MonoBehaviour
         myCollider.enabled = false;
     }
 
-    public void SetPiece(int _pcindex, int _plindex)
+    public void SetPiece(int _pcindex, int _plindex, Vector2 _place)
     {
         pieceIndex = _pcindex;
         playerIndex = _plindex;
+        myplaceholder = _place;
+        transform.position = myplaceholder;
     }
 
     public int GetPieceIndex()
@@ -79,10 +82,24 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void KillMe()
+    {
+        Deactivate();
+        Queue<Vector2> q = new Queue<Vector2>();
+        q.Enqueue(myplaceholder);
+        Action(q, -1);
+    }
+
+    public void WinMe()
+    {
+        Deactivate();
+        this.enabled = false;
+    }
+
     void Move()
     {
         Vector2 distanceToTarget = currentPoint - (Vector2)transform.position;
-        Vector2 currentVelocity = distanceToTarget.normalized * 1.5f * Time.deltaTime;
+        Vector2 currentVelocity = distanceToTarget.normalized * 4 * Time.deltaTime;
         // Move towards target
         if (distanceToTarget.magnitude > currentVelocity.magnitude)
         {

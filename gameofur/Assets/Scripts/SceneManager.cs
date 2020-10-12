@@ -9,20 +9,28 @@ public class SceneManager : MonoBehaviour
     int diceValue; // 0, 1, 2, 3, 4
     public float diceDelayTime; // diceval == 0
     public Player[] myPlayers;
+    public int[] scores;
     public Camera mainCamera;
+    public static SceneManager instance;
 
     ////////// UI //////////
     public Button dice;
     public Text diceValueText;
     public Text playerTurnText;
+    public Text[] scoreText;
 
     void Start()
     {
         currentPlayer = 0;
+        scores = new int[myPlayers.Length];
+
         for (int i = 0; i < myPlayers.Length; i++)
         {
             myPlayers[i].SetPlayer(i);
+            scores[i] = 0;
         }
+
+        instance = this;
     }
 
     public void OnDiceRolled()
@@ -34,15 +42,17 @@ public class SceneManager : MonoBehaviour
         else myPlayers[currentPlayer].CheckForOptions(diceValue);
     }
 
-    void OnSwitchTurn()
+    public void OnSwitchTurnHandler()
     {
         currentPlayer = 1 - currentPlayer;
         playerTurnText.text = (currentPlayer + 1).ToString();
+        ActivateDice();
     }
 
-    void OnSameTurn()
+    public void OnSameTurnHandler()
     {
         Debug.Log("Roll Again!");
+        ActivateDice();
     }
 
     void ActivateDice()
@@ -54,7 +64,7 @@ public class SceneManager : MonoBehaviour
     IEnumerator ActivateDiceDelayed()
     {
         yield return new WaitForSeconds(diceDelayTime);
-        OnSwitchTurn();
+        OnSwitchTurnHandler();
         ActivateDice();
     }
 
@@ -77,13 +87,17 @@ public class SceneManager : MonoBehaviour
     void MoveThisPiece(int _playerIndex, int _pieceIndex, int _diceval)
     {
         if (!myPlayers[_playerIndex].IsThisPieceActive(_pieceIndex)) return;
+        myPlayers[_playerIndex].NavigateThisPiece(_pieceIndex, _diceval);
+    }
 
-        // Fill end action to perform when reached
-        PieceReachedHandler endAction = () => ActivateDice();
-        if (!myPlayers[_playerIndex].IsThisTileSafe(_pieceIndex, _diceval)) endAction += () => { OnSwitchTurn(); };
-        else endAction += () => { OnSameTurn(); };
-
-        myPlayers[_playerIndex].NavigateThisPiece(_pieceIndex, _diceval, endAction);
+    public void GrantOneScorePoint(int _playerIndex)
+    {
+        scores[_playerIndex] += 1;
+        scoreText[_playerIndex].text = scores[_playerIndex].ToString();
+        if (scores[_playerIndex] > 6)
+        {   // On game end
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
 }
