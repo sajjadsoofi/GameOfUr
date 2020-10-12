@@ -76,8 +76,6 @@ public class Player : MonoBehaviour
         Piece enemy = myTiles[targetTile].GetEnemyPiece();
         if (enemy != null) endAction += () => { enemy.KillMe(); };
 
-        myPieces[_index].OnPathEnded += endAction;
-
         // Free your tile
         if (myPieces[_index].currentTile != -1)
             myTiles[myPieces[_index].currentTile].FreeThisTile();
@@ -85,7 +83,7 @@ public class Player : MonoBehaviour
         myTiles[targetTile].TakeThisTile(myPieces[_index]);
 
         // Go to tile
-        myPieces[_index].Action(q, targetTile);
+        myPieces[_index].Action(q, targetTile, endAction);
     }
 
 }

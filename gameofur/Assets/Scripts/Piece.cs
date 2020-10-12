@@ -48,9 +48,10 @@ public class Piece : MonoBehaviour
         myCollider.enabled = false;
     }
 
-    public void Action(Queue<Vector2> _pathPoints, int _targetTile)
+    public void Action(Queue<Vector2> _pathPoints, int _targetTile, EndActionHandler _endaction)
     {
         currentTile = _targetTile;
+        OnPathEnded = _endaction;
 
         // New points if empty
         if (pathPoints.Count < 1) pathPoints = _pathPoints;
@@ -73,26 +74,8 @@ public class Piece : MonoBehaviour
         {   // Last target reached
             currentPoint = Vector2.zero;
             transform.GetChild(0).GetComponent<Animator>().enabled = false;
-            if (OnPathEnded != null)
-            {
-                OnPathEnded();
-                OnPathEnded = null;
-            }
+            if (OnPathEnded != null) OnPathEnded();
         }
-    }
-
-    public void KillMe()
-    {
-        Deactivate();
-        Queue<Vector2> q = new Queue<Vector2>();
-        q.Enqueue(myplaceholder);
-        Action(q, -1);
-    }
-
-    public void WinMe()
-    {
-        Deactivate();
-        this.enabled = false;
     }
 
     void Move()
@@ -100,7 +83,7 @@ public class Piece : MonoBehaviour
         Vector2 distanceToTarget = currentPoint - (Vector2)transform.position;
         Vector2 currentVelocity = distanceToTarget.normalized * 4 * Time.deltaTime;
         // Move towards target
-        if (distanceToTarget.magnitude > currentVelocity.magnitude)
+        if (distanceToTarget.sqrMagnitude - currentVelocity.sqrMagnitude > 0.0001f)
         {
             transform.Translate(currentVelocity);
         }
@@ -115,6 +98,20 @@ public class Piece : MonoBehaviour
     void Update()
     {
         if (isMoving) Move();
+    }
+
+    public void KillMe()
+    {
+        Deactivate();
+        Queue<Vector2> q = new Queue<Vector2>();
+        q.Enqueue(myplaceholder);
+        Action(q, -1, null);
+    }
+
+    public void WinMe()
+    {
+        Deactivate();
+        this.enabled = false;
     }
 
 }

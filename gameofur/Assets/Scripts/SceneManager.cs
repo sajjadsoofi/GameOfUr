@@ -36,8 +36,7 @@ public class SceneManager : MonoBehaviour
     public void OnDiceRolled()
     {
         dice.interactable = false;
-        diceValue = Random.Range(0, 5);
-        // diceValue = Random.Range(0, 2);
+        diceValue = 2 - Random.Range(0, 3) + Random.Range(0, 3);
         diceValueText.text = diceValue.ToString();
         if (diceValue == 0) OnSwitchTurnHandler(true);
         else myPlayers[currentPlayer].CheckForOptions(diceValue);
