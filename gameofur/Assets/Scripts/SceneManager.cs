@@ -51,7 +51,7 @@ public class SceneManager : MonoBehaviour
     IEnumerator ActivateDiceSwitchDelayed(float _delay)
     {
         yield return new WaitForSeconds(_delay);
-        currentPlayer = 1 - currentPlayer;
+        currentPlayer = (currentPlayer + 1) % myPlayers.Length;
         playerTurnText.text = (currentPlayer + 1).ToString();
         ActivateDice();
     }
