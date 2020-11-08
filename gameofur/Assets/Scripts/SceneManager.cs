@@ -18,6 +18,7 @@ public class SceneManager : MonoBehaviour
     public Text diceValueText;
     public Text playerTurnText;
     public Text[] scoreText;
+    public Color[] DiceColors;
 
     void Start()
     {
@@ -37,6 +38,7 @@ public class SceneManager : MonoBehaviour
     {
         dice.interactable = false;
         diceValue = 2 - Random.Range(0, 3) + Random.Range(0, 3);
+
         diceValueText.text = diceValue.ToString();
         if (diceValue == 0) OnSwitchTurnHandler(true);
         else myPlayers[currentPlayer].CheckForOptions(diceValue);
@@ -53,6 +55,7 @@ public class SceneManager : MonoBehaviour
         yield return new WaitForSeconds(_delay);
         currentPlayer = (currentPlayer + 1) % myPlayers.Length;
         playerTurnText.text = (currentPlayer + 1).ToString();
+        DiceUIColorSwitch();
         ActivateDice();
     }
 
@@ -105,6 +108,12 @@ public class SceneManager : MonoBehaviour
         {   // On game end
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+    }
+
+    void DiceUIColorSwitch()
+    {
+        diceValueText.color = DiceColors[currentPlayer];
+        dice.GetComponent<Image>().color = DiceColors[currentPlayer];
     }
 
 }
