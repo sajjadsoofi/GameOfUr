@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Sajjad\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sajjad\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_gameofur.-983082737.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Sajjad\Projects\Unity\GameOfUrGit\gameofur" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Plugins" t="Include">
+          <e p="GameService" t="Include">
+            <e p="Core" t="Include">
+              <e p="FiroozehGameService.xml" t="Include" />
+              <e p="Newtonsoft.Json.xml" t="Include" />
+            </e>
+            <e p="Tools" t="Include">
+              <e p="AsyncAwaitUtil" t="Include">
+                <e p="Source" t="Include">
+                  <e p="Awaiters.cs" t="Include" />
+                  <e p="AwaitExtensions.cs" t="Include" />
+                  <e p="IEnumeratorAwaitExtensions.cs" t="Include" />
+                  <e p="Internal" t="Include">
+                    <e p="AsyncCoroutineRunner.cs" t="Include" />
+                    <e p="SyncContextUtil.cs" t="Include" />
+                  </e>
+                  <e p="TaskExtensions.cs" t="Include" />
+                  <e p="WaitForBackgroundThread.cs" t="Include" />
+                  <e p="WaitForUpdate.cs" t="Include" />
+                </e>
+                <e p="Tests" t="Include">
+                  <e p="AsyncUtilTests.cs" t="Include" />
+                  <e p="Util" t="Include">
+                    <e p="TestButtonHandler.cs" t="Include" />
+                  </e>
+                </e>
+              </e>
+              <e p="NaughtyAttributes" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="Core" t="Include">
+                    <e p="DrawerAttributes" t="Include">
+                      <e p="AllowNestingAttribute.cs" t="Include" />
+                      <e p="CurveRangeAttribute.cs" t="Include" />
+                      <e p="DrawerAttribute.cs" t="Include" />
+                      <e p="DropdownAttribute.cs" t="Include" />
+                      <e p="EnumFlagsAttribute.cs" t="Include" />
+                      <e p="HorizontalLineAttribute.cs" t="Include" />
+                      <e p="InfoBoxAttribute.cs" t="Include" />
+                      <e p="InputAxisAttribute.cs" t="Include" />
+                      <e p="MinMaxSliderAttribute.cs" t="Include" />
+                      <e p="ProgressBarAttribute.cs" t="Include" />
+                      <e p="ReadOnlyAttribute.cs" t="Include" />
+                      <e p="ResizableTextAreaAttribute.cs" t="Include" />
+                      <e p="SceneAttribute.cs" t="Include" />
+                      <e p="ShowAssetPreviewAttribute.cs" t="Include" />
+                      <e p="TagAttribute.cs" t="Include" />
+                    </e>
+                    <e p="DrawerAttributes_SpecialCase" t="Include">
+                      <e p="ButtonAttribute.cs" t="Include" />
+                      <e p="ReorderableListAttribute.cs" t="Include" />
+                      <e p="ShowNativePropertyAttribute.cs" t="Include" />
+                      <e p="ShowNonSerializedFieldAttribute.cs" t="Include" />
+                      <e p="SpecialCaseDrawerAttribute.cs" t="Include" />
+                    </e>
+                    <e p="INaughtyAttribute.cs" t="Include" />
+                    <e p="MetaAttributes" t="Include">
+                      <e p="BoxGroupAttribute.cs" t="Include" />
+                      <e p="DisableIfAttribute.cs" t="Include" />
+                      <e p="EnableIfAttribute.cs" t="Include" />
+                      <e p="EnableIfAttributeBase.cs" t="Include" />
+                      <e p="HideIfAttribute.cs" t="Include" />
+                      <e p="LabelAttribute.cs" t="Include" />
+                      <e p="MetaAttribute.cs" t="Include" />
+                      <e p="OnValueChangedAttribute.cs" t="Include" />
+                      <e p="ShowIfAttribute.cs" t="Include" />
+                      <e p="ShowIfAttributeBase.cs" t="Include" />
+                    </e>
+                    <e p="Utility" t="Include">
+                      <e p="EColor.cs" t="Include" />
+                      <e p="EConditionOperator.cs" t="Include" />
+                    </e>
+                    <e p="ValidatorAttributes" t="Include">
+                      <e p="MaxValueAttribute.cs" t="Include" />
+                      <e p="MinValueAttribute.cs" t="Include" />
+                      <e p="RequiredAttribute.cs" t="Include" />
+                      <e p="ValidateInputAttribute.cs" t="Include" />
+                      <e p="ValidatorAttribute.cs" t="Include" />
+                    </e>
+                  </e>
+                  <e p="Editor" t="Include">
+                    <e p="DecoratorDrawers" t="Include">
+                      <e p="HorizontalLineDecoratorDrawer.cs" t="Include" />
+                      <e p="InfoBoxDecoratorDrawer.cs" t="Include" />
+                    </e>
+                    <e p="NaughtyInspector.cs" t="Include" />
+                    <e p="PropertyDrawers" t="Include">
+                      <e p="AllowNestingPropertyDrawer.cs" t="Include" />
+                      <e p="CurveRangePropertyDrawer.cs" t="Include" />
+                      <e p="DropdownPropertyDrawer.cs" t="Include" />
+                      <e p="EnumFlagsPropertyDrawer.cs" t="Include" />
+                      <e p="InputAxisPropertyDrawer.cs" t="Include" />
+                      <e p="MinMaxSliderPropertyDrawer.cs" t="Include" />
+                      <e p="ProgressBarPropertyDrawer.cs" t="Include" />
+                      <e p="PropertyDrawerBase.cs" t="Include" />
+                      <e p="ReadOnlyPropertyDrawer.cs" t="Include" />
+                      <e p="ResizableTextAreaPropertyDrawer.cs" t="Include" />
+                      <e p="ScenePropertyDrawer.cs" t="Include" />
+                      <e p="ShowAssetPreviewPropertyDrawer.cs" t="Include" />
+                      <e p="TagPropertyDrawer.cs" t="Include" />
+                    </e>
+                    <e p="PropertyDrawers_SpecialCase" t="Include">
+                      <e p="ReorderableListPropertyDrawer.cs" t="Include" />
+                      <e p="SpecialCasePropertyDrawerBase.cs" t="Include" />
+                    </e>
+                    <e p="PropertyValidators" t="Include">
+                      <e p="MaxValuePropertyValidator.cs" t="Include" />
+                      <e p="MinValuePropertyValidator.cs" t="Include" />
+                      <e p="PropertyValidatorBase.cs" t="Include" />
+                      <e p="RequiredPropertyValidator.cs" t="Include" />
+                      <e p="ValidateInputPropertyValidator.cs" t="Include" />
+                    </e>
+                    <e p="Utility" t="Include">
+                      <e p="ButtonUtility.cs" t="Include" />
+                      <e p="NaughtyEditorGUI.cs" t="Include" />
+                      <e p="PropertyUtility.cs" t="Include" />
+                      <e p="ReflectionUtility.cs" t="Include" />
+                    </e>
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="Utils" t="Include">
+              <e p="GameServiceInitializer.cs" t="Include" />
+              <e p="RealTimeUtil" t="Include">
+                <e p="Classes" t="Include">
+                  <e p="Attributes" t="Include">
+                    <e p="GsLiveRunable.cs" t="Include" />
+                  </e>
+                  <e p="GsLiveRtObserver.cs" t="Include" />
+                  <e p="Handlers" t="Include">
+                    <e p="FunctionHandler.cs" t="Include" />
+                    <e p="MemberHandler.cs" t="Include" />
+                    <e p="MonoBehaviourHandler.cs" t="Include" />
+                    <e p="PrefabHandler.cs" t="Include" />
+                    <e p="PropertyHandler.cs" t="Include" />
+                  </e>
+                  <e p="MonoBehaviourGsLive.cs" t="Include" />
+                  <e p="Observers" t="Include">
+                    <e p="RealtimeRigidbody2DObserver.cs" t="Include" />
+                    <e p="RealtimeRigidbodyObserver.cs" t="Include" />
+                    <e p="RealtimeSmoothMoveObserver.cs" t="Include" />
+                    <e p="RealtimeTransformObserver.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="Consts" t="Include">
+                  <e p="FunctionType.cs" t="Include" />
+                  <e p="Sizes.cs" t="Include" />
+                  <e p="Types.cs" t="Include" />
+                </e>
+                <e p="GsLiveRealtime.cs" t="Include" />
+                <e p="Interfaces" t="Include">
+                  <e p="IFunctionHandler.cs" t="Include" />
+                  <e p="IMemberHandler.cs" t="Include" />
+                  <e p="IMonoBehaviourHandler.cs" t="Include" />
+                  <e p="IPrefabHandler.cs" t="Include" />
+                  <e p="IPropertyHandler.cs" t="Include" />
+                </e>
+                <e p="Models" t="Include">
+                  <e p="CallbackModels" t="Include">
+                    <e p="OnAfterInstantiate.cs" t="Include" />
+                    <e p="OnBeforeInstantiate.cs" t="Include" />
+                    <e p="OnDestroyObject.cs" t="Include" />
+                    <e p="OnPropertyEvent.cs" t="Include" />
+                  </e>
+                  <e p="Property.cs" t="Include" />
+                  <e p="SendableObjects" t="Include">
+                    <e p="FunctionData.cs" t="Include" />
+                    <e p="GameObjectData.cs" t="Include" />
+                    <e p="InstantiateData.cs" t="Include" />
+                    <e p="PropertyData.cs" t="Include" />
+                  </e>
+                  <e p="UnitySerializerModels" t="Include">
+                    <e p="ExtendedPrimitives" t="Include">
+                      <e p="BoundsSerializer.cs" t="Include" />
+                      <e p="PlaneSerializer.cs" t="Include" />
+                      <e p="RangeIntSerializer.cs" t="Include" />
+                      <e p="Ray2DSerializer.cs" t="Include" />
+                      <e p="RaySerializer.cs" t="Include" />
+                      <e p="RectSerializer.cs" t="Include" />
+                    </e>
+                    <e p="Miscs" t="Include">
+                      <e p="Vector2IntArraySerializer.cs" t="Include" />
+                      <e p="Vector2IntSerializer.cs" t="Include" />
+                      <e p="Vector3IntArraySerializer.cs" t="Include" />
+                      <e p="Vector3IntSerializer.cs" t="Include" />
+                    </e>
+                    <e p="Primitives" t="Include">
+                      <e p="Color32Serializer.cs" t="Include" />
+                      <e p="ColorSerializer.cs" t="Include" />
+                      <e p="Matrix4X4Serializer.cs" t="Include" />
+                      <e p="QuaternionArraySerializer.cs" t="Include" />
+                      <e p="QuaternionSerializer.cs" t="Include" />
+                      <e p="ٰVector2ArraySerializer.cs" t="Include" />
+                      <e p="ٰVector2Serializer.cs" t="Include" />
+                      <e p="ٰVector3ArraySerializer.cs" t="Include" />
+                      <e p="ٰVector3Serializer.cs" t="Include" />
+                      <e p="ٰVector4ArraySerializer.cs" t="Include" />
+                      <e p="ٰVector4Serializer.cs" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="Utils" t="Include">
+                  <e p="ActionUtil.cs" t="Include" />
+                  <e p="ObjectUtil.cs" t="Include" />
+                  <e p="SenderUtil.cs" t="Include" />
+                  <e p="TypeUtil.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Controller" t="Include">
+            <e p="LoginMenuController.cs" t="Include" />
+            <e p="StartMenuController.cs" t="Include" />
+          </e>
+          <e p="GamePlay" t="Include">
+            <e p="_Tile.cs" t="Include" />
+            <e p="_TileHome.cs" t="Include" />
+            <e p="_TileSafe.cs" t="Include" />
+            <e p="Piece.cs" t="Include" />
+            <e p="Player.cs" t="Include" />
+          </e>
+          <e p="Handlers" t="Include">
+            <e p="GsLiveHandler.cs" t="Include" />
+          </e>
+          <e p="Managers" t="Include">
+            <e p="GameManager.cs" t="Include" />
+            <e p="SceneManagerNetWork.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
+          </e>
+          <e p="Models" t="Include">
+            <e p="TurnData.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="FileUtil.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="gameofur.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
